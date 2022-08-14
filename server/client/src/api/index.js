@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "https://newww22.herokuapp.com" });
+const API = axios.create({ baseURL: "https://photoflick.herokuapp.com" });
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("profile")) {
