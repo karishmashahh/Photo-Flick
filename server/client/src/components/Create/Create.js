@@ -14,7 +14,7 @@ const Create = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const history = useNavigate();
-   console.log(id);
+   
    // const classes = useStyles();
 
     return(

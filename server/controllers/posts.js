@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import PostMessage from "../models/postMessage.js";
 
 export const getPosts = async (req, res) => {
-  console.log("h");
+  
   const { page } = req.query;
   try {
     const LIMIT = 6;

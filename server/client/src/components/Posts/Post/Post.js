@@ -20,7 +20,7 @@ const Post = ({ post, setCurrentId }) => {
 
     const Likes = () => {
         if (post && post.likes && post.likes.length > 0) {
-            return post.likes.find((like) => like === ((user && user.result && user.result.googleId) || (user && user.result && user.result._id)))
+            return post.likes.find((like) => like === ((user && user.result && user.result.sub) || (user && user.result && user.result._id)))
                 ? (
                     <><ThumbUpAltIcon fontSize="small" />&nbsp;{post.likes.length > 2 ? `You and ${post.likes.length - 1} others` : `${post.likes.length} like${post.likes.length > 1 ? 's' : ''}`}</>
                 ) : (
@@ -56,14 +56,14 @@ const Post = ({ post, setCurrentId }) => {
                 <Button className={classes.button} size="small" color="primary" disabled={!user || !user.result} onClick={() => dispatch(likePost(post._id))}>
                     <Likes />
                 </Button>
-                {((user && user.result && user.result.googleId === post.creator) || (user && user.result && user.result._id === post.creator)) &&
+                {((user && user.result && user.result.sub === post.creator) || (user && user.result && user.result._id === post.creator)) &&
                     (
                         <Button className={classes.button} size="small" color="primary" onClick={() => dispatch(deletePost(post._id))} >
                             <DeleteIcon fontSize="small" />
                             Delete
                         </Button>
                     )}
-                {((user && user.result && user.result.googleId === post.creator) || (user && user.result && user.result._id === post.creator)) && (
+                {((user && user.result && user.result.sub=== post.creator) || (user && user.result && user.result._id === post.creator)) && (
                     <div className={classes.overlay2}>
                         <Button style={{ color: 'white' }} size="medium" onClick={() => setCurrentId(post._id)}>
                             <MoreHorizIcon fontSize="default" onClick={()=>{history(`/create/${post._id}`)}}/>

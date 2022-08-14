@@ -23,6 +23,6 @@ if (process.env.NODE_ENV == "production") {
 }
 
 mongoose
-  .connect("mongodb+srv://karishmashah:joeylovesfood@cluster0.nzyk3.mongodb.net/?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => app.listen(PORT, () => console.log(`Server running on port: ${PORT}`)))
   .catch((error) => console.log(error.message));

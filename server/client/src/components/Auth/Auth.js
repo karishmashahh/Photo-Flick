@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { Avatar, Button, Paper, Grid, Typography, Container, TextField } from '@material-ui/core';
 import useStyles from './styles';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { GoogleLogin } from 'react-google-login';
+import { GoogleLogin } from '@react-oauth/google';
 import Icon from './icon';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Input from './Input';
 import { gapi } from "gapi-script";
 import { signup, signin } from '../../actions/auth';
+import jwt_decode from 'jwt-decode';
 
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
 
@@ -43,12 +44,15 @@ const Auth = () => {
     };
 
     const googleSuccess = async (res) => {
-        const result = res.profileObj;  //?. not give error if res is not there
-        const token = res.tokenId;
+        //?. not give error if res is not there
+        const token = res.credential;
+        const result=jwt_decode(res.credential);
+       
+        
 
         try {
             dispatch({ type: 'AUTH', data: { result, token } });
-
+                
             history('/');
         }
         catch (error) {
@@ -61,12 +65,7 @@ const Auth = () => {
         console.log("Google Sign In was unsuccessful!");
     };
 
-    window.gapi.load('client:auth2', () => {
-        window.gapi.client.init({
-            clientId: "169846995513-fn2fpbouikumv8m23eh7vhqco2mp5oqr.apps.googleusercontent.com",
-            plugin_name: "chat"
-        })
-    })
+
 
     return (
         <Container component="main" maxWidth="xs">
@@ -93,13 +92,11 @@ const Auth = () => {
                         {isSignup ? 'Sign Up' : 'Sign In'}
                     </Button>
                     <GoogleLogin
-                        clientId="169846995513-fn2fpbouikumv8m23eh7vhqco2mp5oqr.apps.googleusercontent.com"
                         render={(renderProps) => (
                             <Button className={classes.googleButton} color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<Icon />} variant="contained">Google Sign In</Button>
                         )}
                         onSuccess={googleSuccess}
                         onFailure={googleFailure}
-                        cookiePolicy="single_host_origin"
                     />
 
                     <Grid container justify="flex-end">

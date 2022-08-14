@@ -8,6 +8,7 @@
     "@material-ui/lab": "^4.0.0-alpha.61",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.8.7",
+    "@react-oauth/google": "^0.2.6",
     "@types/react-redux": "^7.1.24",
     "@types/redux": "^3.6.0",
     "add": "^2.0.6",
